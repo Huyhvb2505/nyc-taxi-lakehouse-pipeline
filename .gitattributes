@@ -1,0 +1,25 @@
+# Force LF line endings on checkout for everything that runs inside a Linux
+# container or is executed by bash. Without this, Git on Windows rewrites files
+# to CRLF and the `\r` characters break the compose `command:` blocks, the
+# entrypoints and the .env values (e.g. "2G\r").
+* text=auto eol=lf
+
+*.py        text eol=lf
+*.sh        text eol=lf
+*.conf      text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.md        text eol=lf
+*.env       text eol=lf
+.env        text eol=lf
+.gitkeep    text eol=lf
+Dockerfile  text eol=lf
+Makefile    text eol=lf
+
+# run.ps1 is executed by PowerShell on Windows — keep CRLF there.
+*.ps1       text eol=crlf
+
+# Binary payloads must never be touched.
+*.parquet   binary
+*.jar       binary
+*.zip       binary

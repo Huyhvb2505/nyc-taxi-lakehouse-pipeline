@@ -1,0 +1,2 @@
+# Your Airflow DAGs go here. This folder is mounted into the airflow container
+# at /opt/airflow/dags. Anything you drop here is picked up automatically.

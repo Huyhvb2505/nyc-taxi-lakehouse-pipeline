@@ -1,0 +1,3 @@
+# Shared storage, mounted at /data in Spark, Jupyter and Airflow.
+#   /data/raw/        raw downloaded files (parquet + dimension CSVs)
+#   /data/lakehouse/  your Delta tables live here (you design the layout)

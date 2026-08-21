@@ -1,0 +1,192 @@
+# =============================================================================
+# Lakehouse Starter — Big Data Engineering Final Project
+# Provided infrastructure ONLY. Students build the ETL pipelines themselves.
+#
+#   Kafka (Redpanda) + Spark standalone cluster + Delta Lake + Airflow + Jupyter
+#   Storage: local shared volume ./data mounted at /data in every compute node.
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Kafka-compatible broker (Redpanda) — source for the heavy FACT stream
+  # ---------------------------------------------------------------------------
+  redpanda:
+    image: redpandadata/redpanda:v24.2.7
+    container_name: redpanda
+    command:
+      - redpanda
+      - start
+      - --smp=1
+      - --overprovisioned
+      - --node-id=0
+      - --mode=dev-container
+      - --kafka-addr=internal://0.0.0.0:9092,external://0.0.0.0:19092
+      - --advertise-kafka-addr=internal://redpanda:9092,external://localhost:19092
+      - --rpc-addr=redpanda:33145
+      - --advertise-rpc-addr=redpanda:33145
+    ports:
+      - "19092:19092"   # Kafka API from the host (bootstrap: localhost:19092)
+      - "9644:9644"     # Admin API
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy:.*true'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - redpanda-data:/var/lib/redpanda/data
+
+  redpanda-console:
+    image: redpandadata/console:v2.7.2
+    container_name: redpanda-console
+    depends_on:
+      - redpanda
+    environment:
+      KAFKA_BROKERS: redpanda:9092
+    ports:
+      - "8080:8080"     # Topic / message viewer -> http://localhost:8080
+
+  # ---------------------------------------------------------------------------
+  # Spark standalone cluster (Delta Lake + Kafka connector baked in)
+  # ---------------------------------------------------------------------------
+  spark-master:
+    build: ./images/spark
+    image: lakehouse/spark:3.5.3
+    container_name: spark-master
+    user: root
+    command:
+      - /bin/bash
+      - -c
+      - "/opt/spark/bin/spark-class org.apache.spark.deploy.master.Master --host spark-master --port 7077 --webui-port 8080"
+    environment:
+      SPARK_NO_DAEMONIZE: "true"
+    ports:
+      - "7077:7077"     # Spark master RPC (spark://localhost:7077)
+      - "8081:8080"     # Master web UI -> http://localhost:8081
+    volumes:
+      - ./data:/data
+
+  spark-worker:
+    build: ./images/spark
+    image: lakehouse/spark:3.5.3
+    container_name: spark-worker
+    user: root
+    depends_on:
+      - spark-master
+    command:
+      - /bin/bash
+      - -c
+      - "/opt/spark/bin/spark-class org.apache.spark.deploy.worker.Worker spark://spark-master:7077 --cores ${SPARK_WORKER_CORES} --memory ${SPARK_WORKER_MEMORY} --webui-port 8080"
+    environment:
+      SPARK_NO_DAEMONIZE: "true"
+    ports:
+      - "8082:8080"     # Worker web UI -> http://localhost:8082
+    volumes:
+      - ./data:/data
+
+  # ---------------------------------------------------------------------------
+  # JupyterLab — interactive PySpark against the cluster (Delta ready)
+  # ---------------------------------------------------------------------------
+  jupyter:
+    build: ./images/jupyter
+    image: lakehouse/jupyter:3.5.3
+    container_name: jupyter
+    user: root
+    depends_on:
+      - spark-master
+    command:
+      - /bin/bash
+      - -c
+      - "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root --ServerApp.token='' --ServerApp.password='' --notebook-dir=/home/work"
+    ports:
+      - "8888:8888"     # JupyterLab -> http://localhost:8888  (no token)
+    volumes:
+      - ./notebooks:/home/work
+      - ./data:/data
+
+  # ---------------------------------------------------------------------------
+  # Airflow (LocalExecutor) — orchestration. Submits jobs to the Spark cluster.
+  # ---------------------------------------------------------------------------
+  airflow-postgres:
+    image: postgres:18
+    container_name: airflow-postgres
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    volumes:
+      # PostgreSQL 18 images store data in a version-specific subdirectory and
+      # expect the mount at /var/lib/postgresql (NOT /var/lib/postgresql/data).
+      - airflow-pgdata:/var/lib/postgresql
+
+  airflow:
+    build: ./images/airflow
+    image: lakehouse/airflow:2.10.3
+    container_name: airflow
+    depends_on:
+      airflow-postgres:
+        condition: service_healthy
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgres:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__WEBSERVER__EXPOSE_CONFIG: "true"
+      # Pre-wired connection to the Spark cluster for SparkSubmitOperator:
+      AIRFLOW_CONN_SPARK_DEFAULT: "spark://spark-master:7077"
+      _AIRFLOW_ADMIN_USER: admin
+      _AIRFLOW_ADMIN_PASSWORD: admin
+    # NOTE: first token must be exactly "bash" (not "/bin/bash") — the official
+    # airflow entrypoint only recognizes "bash" to exec a shell; anything else is
+    # treated as an `airflow` subcommand.
+    command:
+      - bash
+      - -c
+      - |
+        airflow db migrate
+        airflow users create --username "$${_AIRFLOW_ADMIN_USER}" --password "$${_AIRFLOW_ADMIN_PASSWORD}" \
+          --firstname Admin --lastname User --role Admin --email admin@example.com || true
+        airflow scheduler &
+        exec airflow webserver
+    ports:
+      - "8085:8080"     # Airflow UI -> http://localhost:8085  (admin / admin)
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./data:/data
+
+  # ---------------------------------------------------------------------------
+  # On-demand tools (not started by `up`; run with `docker compose run`)
+  # ---------------------------------------------------------------------------
+  downloader:
+    build: ./ingestion
+    image: lakehouse/ingestion:latest
+    profiles: ["tools"]
+    entrypoint: ["python", "download_data.py"]
+    # Usage: docker compose run --rm downloader 2024 01
+    volumes:
+      - ./data:/data
+
+  trip-producer:
+    build: ./ingestion
+    image: lakehouse/ingestion:latest
+    profiles: ["tools"]
+    depends_on:
+      - redpanda
+    entrypoint: ["python", "produce_trips.py"]
+    # Usage: docker compose run --rm trip-producer            (defaults)
+    #        docker compose run --rm trip-producer --delay 0.2 --batch-size 5000
+    environment:
+      BROKER: redpanda:9092
+      TOPIC: yellow_trips
+      SOURCE: /data/raw/yellow
+    volumes:
+      - ./data:/data
+
+volumes:
+  redpanda-data:
+  airflow-pgdata:
