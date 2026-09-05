@@ -1,0 +1,357 @@
+{
+  "format-version" : 2,
+  "table-uuid" : "b1c11da5-8622-4c7d-af91-5b7b59410727",
+  "location" : "file:///data/lakehouse/iceberg/bronze/taxi_trips_raw",
+  "last-sequence-number" : 9,
+  "last-updated-ms" : 1788593678651,
+  "last-column-id" : 4,
+  "current-schema-id" : 0,
+  "schemas" : [ {
+    "type" : "struct",
+    "schema-id" : 0,
+    "fields" : [ {
+      "id" : 1,
+      "name" : "offset",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 2,
+      "name" : "partition",
+      "required" : false,
+      "type" : "int"
+    }, {
+      "id" : 3,
+      "name" : "json_str",
+      "required" : false,
+      "type" : "string"
+    }, {
+      "id" : 4,
+      "name" : "ingested_at",
+      "required" : false,
+      "type" : "timestamptz"
+    } ]
+  } ],
+  "default-spec-id" : 0,
+  "partition-specs" : [ {
+    "spec-id" : 0,
+    "fields" : [ ]
+  } ],
+  "last-partition-id" : 999,
+  "default-sort-order-id" : 0,
+  "sort-orders" : [ {
+    "order-id" : 0,
+    "fields" : [ ]
+  } ],
+  "properties" : {
+    "owner" : "root",
+    "write.parquet.compression-codec" : "zstd"
+  },
+  "current-snapshot-id" : 5423526456778179642,
+  "refs" : {
+    "main" : {
+      "snapshot-id" : 5423526456778179642,
+      "type" : "branch"
+    }
+  },
+  "snapshots" : [ {
+    "sequence-number" : 1,
+    "snapshot-id" : 1582179517939369858,
+    "timestamp-ms" : 1788593657740,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905073208-0000",
+      "spark.sql.streaming.epochId" : "0",
+      "spark.sql.streaming.queryId" : "6076455b-dd48-4c6e-984e-f3d12a1ff800",
+      "added-data-files" : "1",
+      "added-records" : "172000",
+      "added-files-size" : "5405954",
+      "changed-partition-count" : "1",
+      "total-records" : "172000",
+      "total-files-size" : "5405954",
+      "total-data-files" : "1",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905073208-0000",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/snap-1582179517939369858-1-6b0ebeb9-2f8a-472d-8bd5-f861634ac59f.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 2,
+    "snapshot-id" : 5736856328066521973,
+    "parent-snapshot-id" : 1582179517939369858,
+    "timestamp-ms" : 1788593660057,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905073208-0000",
+      "spark.sql.streaming.epochId" : "1",
+      "spark.sql.streaming.queryId" : "6076455b-dd48-4c6e-984e-f3d12a1ff800",
+      "added-data-files" : "1",
+      "added-records" : "20805",
+      "added-files-size" : "652881",
+      "changed-partition-count" : "1",
+      "total-records" : "192805",
+      "total-files-size" : "6058835",
+      "total-data-files" : "2",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905073208-0000",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/snap-5736856328066521973-1-d344022b-4346-4ac4-9e30-9b4cb3145162.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 3,
+    "snapshot-id" : 3492376644838548707,
+    "parent-snapshot-id" : 5736856328066521973,
+    "timestamp-ms" : 1788593661867,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905073208-0000",
+      "spark.sql.streaming.epochId" : "2",
+      "spark.sql.streaming.queryId" : "6076455b-dd48-4c6e-984e-f3d12a1ff800",
+      "added-data-files" : "1",
+      "added-records" : "3195",
+      "added-files-size" : "102944",
+      "changed-partition-count" : "1",
+      "total-records" : "196000",
+      "total-files-size" : "6161779",
+      "total-data-files" : "3",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905073208-0000",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/snap-3492376644838548707-1-1e73c979-02ce-4f4e-84c1-da99eda7028f.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 4,
+    "snapshot-id" : 7220049770216315780,
+    "parent-snapshot-id" : 3492376644838548707,
+    "timestamp-ms" : 1788593665516,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905073208-0000",
+      "spark.sql.streaming.epochId" : "3",
+      "spark.sql.streaming.queryId" : "6076455b-dd48-4c6e-984e-f3d12a1ff800",
+      "added-data-files" : "1",
+      "added-records" : "2980",
+      "added-files-size" : "94399",
+      "changed-partition-count" : "1",
+      "total-records" : "198980",
+      "total-files-size" : "6256178",
+      "total-data-files" : "4",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905073208-0000",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/snap-7220049770216315780-1-a8120f4a-e832-4a89-ab62-eae4b242d331.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 5,
+    "snapshot-id" : 2515130077361909199,
+    "parent-snapshot-id" : 7220049770216315780,
+    "timestamp-ms" : 1788593667966,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905073208-0000",
+      "spark.sql.streaming.epochId" : "4",
+      "spark.sql.streaming.queryId" : "6076455b-dd48-4c6e-984e-f3d12a1ff800",
+      "added-data-files" : "1",
+      "added-records" : "3335",
+      "added-files-size" : "105762",
+      "changed-partition-count" : "1",
+      "total-records" : "202315",
+      "total-files-size" : "6361940",
+      "total-data-files" : "5",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905073208-0000",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/snap-2515130077361909199-1-ee0458f2-f312-4674-af96-b243753b6a74.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 6,
+    "snapshot-id" : 6782450894701407008,
+    "parent-snapshot-id" : 2515130077361909199,
+    "timestamp-ms" : 1788593671003,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905073208-0000",
+      "spark.sql.streaming.epochId" : "5",
+      "spark.sql.streaming.queryId" : "6076455b-dd48-4c6e-984e-f3d12a1ff800",
+      "added-data-files" : "1",
+      "added-records" : "3610",
+      "added-files-size" : "113582",
+      "changed-partition-count" : "1",
+      "total-records" : "205925",
+      "total-files-size" : "6475522",
+      "total-data-files" : "6",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905073208-0000",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/snap-6782450894701407008-1-e79c9638-5715-4d2c-b63e-7e7582b60d72.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 7,
+    "snapshot-id" : 427263700790861003,
+    "parent-snapshot-id" : 6782450894701407008,
+    "timestamp-ms" : 1788593673109,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905073208-0000",
+      "spark.sql.streaming.epochId" : "6",
+      "spark.sql.streaming.queryId" : "6076455b-dd48-4c6e-984e-f3d12a1ff800",
+      "added-data-files" : "1",
+      "added-records" : "2530",
+      "added-files-size" : "80973",
+      "changed-partition-count" : "1",
+      "total-records" : "208455",
+      "total-files-size" : "6556495",
+      "total-data-files" : "7",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905073208-0000",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/snap-427263700790861003-1-b8c21cdf-1671-49f6-a554-8a1f3550fee3.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 8,
+    "snapshot-id" : 4098122436172474500,
+    "parent-snapshot-id" : 427263700790861003,
+    "timestamp-ms" : 1788593676418,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905073208-0000",
+      "spark.sql.streaming.epochId" : "7",
+      "spark.sql.streaming.queryId" : "6076455b-dd48-4c6e-984e-f3d12a1ff800",
+      "added-data-files" : "1",
+      "added-records" : "3545",
+      "added-files-size" : "113681",
+      "changed-partition-count" : "1",
+      "total-records" : "212000",
+      "total-files-size" : "6670176",
+      "total-data-files" : "8",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905073208-0000",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/snap-4098122436172474500-1-4ddad707-d097-472b-b6e8-05d5c7570d08.avro",
+    "schema-id" : 0
+  }, {
+    "sequence-number" : 9,
+    "snapshot-id" : 5423526456778179642,
+    "parent-snapshot-id" : 4098122436172474500,
+    "timestamp-ms" : 1788593678651,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905073208-0000",
+      "spark.sql.streaming.epochId" : "8",
+      "spark.sql.streaming.queryId" : "6076455b-dd48-4c6e-984e-f3d12a1ff800",
+      "added-data-files" : "1",
+      "added-records" : "4000",
+      "added-files-size" : "127339",
+      "changed-partition-count" : "1",
+      "total-records" : "216000",
+      "total-files-size" : "6797515",
+      "total-data-files" : "9",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905073208-0000",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/snap-5423526456778179642-1-25f37427-c30f-4a7c-b301-b6a639b4fe0a.avro",
+    "schema-id" : 0
+  } ],
+  "statistics" : [ ],
+  "partition-statistics" : [ ],
+  "snapshot-log" : [ {
+    "timestamp-ms" : 1788593657740,
+    "snapshot-id" : 1582179517939369858
+  }, {
+    "timestamp-ms" : 1788593660057,
+    "snapshot-id" : 5736856328066521973
+  }, {
+    "timestamp-ms" : 1788593661867,
+    "snapshot-id" : 3492376644838548707
+  }, {
+    "timestamp-ms" : 1788593665516,
+    "snapshot-id" : 7220049770216315780
+  }, {
+    "timestamp-ms" : 1788593667966,
+    "snapshot-id" : 2515130077361909199
+  }, {
+    "timestamp-ms" : 1788593671003,
+    "snapshot-id" : 6782450894701407008
+  }, {
+    "timestamp-ms" : 1788593673109,
+    "snapshot-id" : 427263700790861003
+  }, {
+    "timestamp-ms" : 1788593676418,
+    "snapshot-id" : 4098122436172474500
+  }, {
+    "timestamp-ms" : 1788593678651,
+    "snapshot-id" : 5423526456778179642
+  } ],
+  "metadata-log" : [ {
+    "timestamp-ms" : 1788593642224,
+    "metadata-file" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/v1.metadata.json"
+  }, {
+    "timestamp-ms" : 1788593657740,
+    "metadata-file" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/v2.metadata.json"
+  }, {
+    "timestamp-ms" : 1788593660057,
+    "metadata-file" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/v3.metadata.json"
+  }, {
+    "timestamp-ms" : 1788593661867,
+    "metadata-file" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/v4.metadata.json"
+  }, {
+    "timestamp-ms" : 1788593665516,
+    "metadata-file" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/v5.metadata.json"
+  }, {
+    "timestamp-ms" : 1788593667966,
+    "metadata-file" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/v6.metadata.json"
+  }, {
+    "timestamp-ms" : 1788593671003,
+    "metadata-file" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/v7.metadata.json"
+  }, {
+    "timestamp-ms" : 1788593673109,
+    "metadata-file" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/v8.metadata.json"
+  }, {
+    "timestamp-ms" : 1788593676418,
+    "metadata-file" : "file:/data/lakehouse/iceberg/bronze/taxi_trips_raw/metadata/v9.metadata.json"
+  } ]
+}

@@ -1,0 +1,183 @@
+{
+  "format-version" : 2,
+  "table-uuid" : "b0e51c52-2b7b-489a-b10f-656a9b765398",
+  "location" : "file:///data/lakehouse/iceberg/silver/taxi_trips_quarantine",
+  "last-sequence-number" : 1,
+  "last-updated-ms" : 1788602026968,
+  "last-column-id" : 23,
+  "current-schema-id" : 0,
+  "schemas" : [ {
+    "type" : "struct",
+    "schema-id" : 0,
+    "fields" : [ {
+      "id" : 1,
+      "name" : "VendorID",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 2,
+      "name" : "tpep_pickup_datetime",
+      "required" : false,
+      "type" : "timestamptz"
+    }, {
+      "id" : 3,
+      "name" : "tpep_dropoff_datetime",
+      "required" : false,
+      "type" : "timestamptz"
+    }, {
+      "id" : 4,
+      "name" : "passenger_count",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 5,
+      "name" : "trip_distance",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 6,
+      "name" : "RatecodeID",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 7,
+      "name" : "store_and_fwd_flag",
+      "required" : false,
+      "type" : "string"
+    }, {
+      "id" : 8,
+      "name" : "PULocationID",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 9,
+      "name" : "DOLocationID",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 10,
+      "name" : "payment_type",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 11,
+      "name" : "fare_amount",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 12,
+      "name" : "extra",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 13,
+      "name" : "mta_tax",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 14,
+      "name" : "tip_amount",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 15,
+      "name" : "tolls_amount",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 16,
+      "name" : "improvement_surcharge",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 17,
+      "name" : "total_amount",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 18,
+      "name" : "congestion_surcharge",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 19,
+      "name" : "Airport_fee",
+      "required" : false,
+      "type" : "double"
+    }, {
+      "id" : 20,
+      "name" : "ingested_at",
+      "required" : false,
+      "type" : "timestamptz"
+    }, {
+      "id" : 21,
+      "name" : "offset",
+      "required" : false,
+      "type" : "long"
+    }, {
+      "id" : 22,
+      "name" : "partition",
+      "required" : false,
+      "type" : "int"
+    }, {
+      "id" : 23,
+      "name" : "error_reason",
+      "required" : false,
+      "type" : "string"
+    } ]
+  } ],
+  "default-spec-id" : 0,
+  "partition-specs" : [ {
+    "spec-id" : 0,
+    "fields" : [ ]
+  } ],
+  "last-partition-id" : 999,
+  "default-sort-order-id" : 0,
+  "sort-orders" : [ {
+    "order-id" : 0,
+    "fields" : [ ]
+  } ],
+  "properties" : {
+    "owner" : "root",
+    "write.parquet.compression-codec" : "zstd"
+  },
+  "current-snapshot-id" : 4210305415907038964,
+  "refs" : {
+    "main" : {
+      "snapshot-id" : 4210305415907038964,
+      "type" : "branch"
+    }
+  },
+  "snapshots" : [ {
+    "sequence-number" : 1,
+    "snapshot-id" : 4210305415907038964,
+    "timestamp-ms" : 1788602026968,
+    "summary" : {
+      "operation" : "append",
+      "spark.app.id" : "app-20260905095220-0003",
+      "added-data-files" : "23",
+      "added-records" : "5957",
+      "added-files-size" : "315890",
+      "changed-partition-count" : "1",
+      "total-records" : "5957",
+      "total-files-size" : "315890",
+      "total-data-files" : "23",
+      "total-delete-files" : "0",
+      "total-position-deletes" : "0",
+      "total-equality-deletes" : "0",
+      "engine-version" : "3.5.3",
+      "app-id" : "app-20260905095220-0003",
+      "engine-name" : "spark",
+      "iceberg-version" : "Apache Iceberg 1.7.2 (commit c4e11060db443b0f3e5b70d25e7784f5a8991ad2)"
+    },
+    "manifest-list" : "file:/data/lakehouse/iceberg/silver/taxi_trips_quarantine/metadata/snap-4210305415907038964-1-31d2cf37-9224-4135-a277-f2ccd40878a9.avro",
+    "schema-id" : 0
+  } ],
+  "statistics" : [ ],
+  "partition-statistics" : [ ],
+  "snapshot-log" : [ {
+    "timestamp-ms" : 1788602026968,
+    "snapshot-id" : 4210305415907038964
+  } ],
+  "metadata-log" : [ ]
+}
